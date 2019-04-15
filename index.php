@@ -7,7 +7,16 @@
 # loader can make it easy.
 #
 
-require __DIR__.'/core/loader.php';
+require_once __DIR__.'/core/loader.php';
+
+#------------------------------------------------------------
+# Load Classes
+#------------------------------------------------------------
+#
+# Now we load out application core.
+#
+
+Loader::init('core');
 
 #------------------------------------------------------------
 # Initialize the App
@@ -19,4 +28,5 @@ require __DIR__.'/core/loader.php';
 
 $app = new App();
 $app->init();
-echo '#done <- from index#';
+
+//echo '<br><hr>#done <- from index#';

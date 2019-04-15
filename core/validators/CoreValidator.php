@@ -1,8 +1,18 @@
 <?php
+# AUTOLOAD = ON
+#------------------------------------------------------------
+# Lorem ips
+#------------------------------------------------------------
+#
+# Lorem ips d...............
+#
 
 class CoreValidator extends Validator
 {
 	public static function validate($arr){
-		echo 'ott';
+	}
+
+	protected function handle($input){
+
 	}
 }

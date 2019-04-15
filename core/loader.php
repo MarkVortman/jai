@@ -3,14 +3,68 @@
 # Just load classes
 #------------------------------------------------------------
 
-spl_autoload_register(function ($class) {
-    include __DIR__ . "/forms/$class.php";
-});
+class Loader
+{
 
-spl_autoload_register(function ($class) {
-    include __DIR__ . "/processes/$class.php";
-});
+	public static function init(string $unit)
+	{	
+		try {
+			self::handleFolder(realpath($unit) . '/', self::getExclusions());
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+	
+	protected function handleFolder(string $absolutePath, $exclusions)
+	{
+		$allFiles = scandir($absolutePath);
 
-spl_autoload_register(function ($class) {
-    include __DIR__ . "/validators/$class.php";
-});
+		foreach ($allFiles as $key => $fileName) {
+			foreach ($exclusions as $key => $excName) {
+				if ( $excName == $fileName ) 
+					continue 2;
+			}
+
+			if (is_dir($absolutePath . $fileName))
+				self::handleFolder($absolutePath . $fileName . '/', $exclusions);
+			elseif (is_file($absolutePath . $fileName))
+				self::handleFile($absolutePath . $fileName);
+			else
+				throw new Exception("Can't handle PHP classes before autoloading, problem with: $fileName");
+		}
+	}
+
+	protected function handleFile(string $filePath)
+	{
+		if (pathinfo($filePath, PATHINFO_EXTENSION) != 'php')
+			return;
+		if( is_readable($filePath)){
+			$var = file($filePath)[1];
+			$arr = explode('=', $var);
+			$key = trim($arr[0], '# ');
+			$value = trim($arr[1]);
+			if ($key === 'AUTOLOAD' && $value === 'ON') {
+				require_once $filePath;
+			}
+		} else {
+			throw new Exception("Incorrect permissions, cant read file: $filePath");
+		}
+	}
+
+	protected function getExclusions()
+	{
+		return array(".", "..", basename(__FILE__));
+	}
+
+	protected function requireFile()
+	{
+		$var = file($filePath)[1];
+		$arr = explode('=', $var);
+		$key = trim($arr[0], '# ');
+		$value = trim($arr[1]);
+		if ($key === 'AUTOLOAD' && $value === 'ON') {
+			require_once $filePath;
+		}
+	}
+
+}
