@@ -7,7 +7,7 @@
 # loader can make it easy.
 #
 
-require_once __DIR__.'/core/loader.php';
+require_once __DIR__.'/loader.php';
 
 #------------------------------------------------------------
 # Load Classes

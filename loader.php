@@ -8,6 +8,7 @@ class Loader
 
 	public static function init(string $unit)
 	{	
+		return realpath($unit);
 		try {
 			self::handleFolder(realpath($unit) . '/', self::getExclusions());
 		} catch (Exception $e) {
@@ -55,16 +56,4 @@ class Loader
 	{
 		return array(".", "..", basename(__FILE__));
 	}
-
-	protected function requireFile()
-	{
-		$var = file($filePath)[1];
-		$arr = explode('=', $var);
-		$key = trim($arr[0], '# ');
-		$value = trim($arr[1]);
-		if ($key === 'AUTOLOAD' && $value === 'ON') {
-			require_once $filePath;
-		}
-	}
-
 }
