@@ -13,17 +13,19 @@ final class LoaderTest extends TestCase
 		$this->loader = new $this->classname();
 	}
 
-    // public function testClassesLoading()
-    // {
-    //     $this->assertTrue(class_exists($this->classname));
-    // }
+	public function tearDown() : void
+	{
+		$this->classname = null;
+		$this->loader = null;
+	}
 
-    public function testGetExclusions()
+    public function testGetExclusions() : void
     {
         $method = self::getMethod($this->classname, 'getExclusions');
         $response = $method->invokeArgs($this->loader, []);
+        $comp = count($response);
 
-        $this->assertEquals(3, count($response));
+        $this->assertEquals(3, $comp);
     }
 
     // public function testHandleFile()

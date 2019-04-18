@@ -15,7 +15,6 @@ require_once __DIR__.'/loader.php';
 #
 # Now we load out application core.
 #
-
 Loader::init('core');
 
 #------------------------------------------------------------

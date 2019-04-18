@@ -10,7 +10,7 @@
 class App extends Process
 {
 
-    public function init() 
+    public function init() : void
     {   
     	$this->setSettings();
     	$router = new Router();
@@ -18,7 +18,7 @@ class App extends Process
         $router->init();
     }
 
-    protected function setSettings()
+    protected function setSettings() : void 
     {
     	#  AD
         #----------------------------------------------------

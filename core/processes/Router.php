@@ -12,14 +12,14 @@
 class Router extends Process
 {
 
-    public function init()
+    public function init() : void
     {
     	$rawRoute = $this->getRawRoute();
     	RouterValidator::validate('Format', $rawRoute);
     	$this->showRoute($rawRoute);
     }
 
-    protected function getRawRoute() 
+    protected function getRawRoute() : array
     {
         $raw = explode("/", array_key_first($_REQUEST));
         foreach ($raw as $key => $value)
@@ -28,7 +28,7 @@ class Router extends Process
     	return $raw;
     }
 
-    protected function showRoute($parameters)
+    protected function showRoute($parameters) : void
     {
     	$controller = CNTD . ucfirst($parameters[0]) . '.php';
     	$class = ucfirst($parameters[0]);
@@ -50,7 +50,7 @@ class Router extends Process
 		$object->$method();
     }
 
-    protected function getRequestMethod($controller, $method)
+    protected function getRequestMethod($controller, $method) : array
     {
         $lines = file($controller);
         foreach ($lines as $line => $string){

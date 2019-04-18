@@ -6,9 +6,8 @@
 class Loader
 {
 
-	public static function init(string $unit)
+	public static function init(string $unit) : void
 	{	
-		return realpath($unit);
 		try {
 			self::handleFolder(realpath($unit) . '/', self::getExclusions());
 		} catch (Exception $e) {
@@ -16,7 +15,7 @@ class Loader
 		}
 	}
 	
-	protected function handleFolder(string $absolutePath, $exclusions)
+	protected function handleFolder(string $absolutePath, $exclusions) : void
 	{
 		$allFiles = scandir($absolutePath);
 
@@ -35,7 +34,7 @@ class Loader
 		}
 	}
 
-	protected function handleFile(string $filePath)
+	protected function handleFile(string $filePath) : void
 	{
 		if (pathinfo($filePath, PATHINFO_EXTENSION) != 'php')
 			return;
@@ -52,7 +51,7 @@ class Loader
 		}
 	}
 
-	protected function getExclusions()
+	protected function getExclusions() : array
 	{
 		return array(".", "..", basename(__FILE__));
 	}
