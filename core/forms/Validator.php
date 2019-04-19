@@ -22,6 +22,7 @@ abstract class Validator
     protected function error(Exception $e) 
     {
         // In future: logging of this, and other settings
+        ob_get_clean();
         echo '<span style="color: red">Error: ' . $e->getMessage() . '</span>';
         die();
     }

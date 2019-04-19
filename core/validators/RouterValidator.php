@@ -56,4 +56,14 @@ class RouterValidator extends Validator
         if (!($input['key'] == 'METHOD' && strtoupper($input['value']) == $_SERVER['REQUEST_METHOD']))
             throw new Exception("Unsupported request method.");
 	}
+
+	#------------------------------------------------------------
+	# Response validation
+	#------------------------------------------------------------
+
+	protected function handleResponseValidator($input) 
+	{
+        if (md5($input['method']) != $_SESSION['rcnfm'])
+            throw new Exception("In controller you must use Respondent for generation response.");
+	}
 }

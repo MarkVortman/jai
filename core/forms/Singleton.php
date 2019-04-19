@@ -14,7 +14,7 @@ class Singleton
     /**
      * @return Singleton
      */
-    final public static function getInstance()
+    final public static function get() : Singleton
     {
         if (null === static::$instance)
         {

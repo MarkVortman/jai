@@ -47,7 +47,9 @@ class Router extends Process
         
         RouterValidator::validate('Method', $methodPair);
 		$object = new $class;
-		$object->$method();
+        $object->$method();
+
+        RouterValidator::validate('Response', ['method' => $method]);
     }
 
     protected function getRequestMethod($controller, $method) : array
