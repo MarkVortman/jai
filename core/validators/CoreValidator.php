@@ -9,10 +9,10 @@
 
 class CoreValidator extends Validator
 {
-	public static function validate($arr){
-	}
+	// public static function validate($arr){
+	// }
 
-	protected function handle($input){
+	// protected function handle($input){
 
-	}
+	// }
 }

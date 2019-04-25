@@ -9,7 +9,7 @@
 
 abstract class Validator
 {
-	public static function validate($subject, $input)
+	public static function validate($subject, $input) : void
 	{
 		try {
 			$call = 'handle' . $subject . 'Validator';
@@ -19,11 +19,20 @@ abstract class Validator
 		}
 	}
 
-    protected function error(Exception $e) 
+    protected function error(Exception $e) : void
     {
         // In future: logging of this, and other settings
         ob_get_clean();
-        echo '<span style="color: red">Error: ' . $e->getMessage() . '</span>';
-        die();
+        http_response_code($e->getCode());
+        header('Content-type: application/json');
+        $message = [
+        	'message' => $e->getMessage()
+    	];
+        exit(json_encode($message));
+    }
+
+    protected function generateException(string $message, int $code) : void
+    {
+    	throw new Exception(static::class . " : " . $message, $code);
     }
 }
