@@ -28,8 +28,17 @@ final class LoaderTest extends TestCase
         $this->assertEquals(3, $comp);
     }
 
-    // public function testHandleFile()
-    // {
-    // 	$object = new $this->classname();
-    // }
+    public function testHandleFile() : void
+    {
+        $path = AD . 'phpunit/mock/Mock.php';
+        $mock = fopen($path, 'w+');
+        fwrite($mock, "<?php\n#AUTOLOAD=ON\n class Mock {}");
+        $method = self::getMethod($this->classname, 'handleFile');
+        $method->invokeArgs($this->loader, [$path]);
+        $response = class_exists('Mock');
+        unlink($path);
+        
+        $this->assertTrue($response);
+        
+    }
 }
