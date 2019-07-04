@@ -7,7 +7,7 @@
 # Lorem ips
 #
 
-class Singleton
+abstract class Singleton
 {
     protected static $instance = null;
 

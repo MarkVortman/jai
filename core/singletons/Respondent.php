@@ -18,6 +18,7 @@ class Respondent extends Singleton
 	{
 		session_start();
 		//must be validation of class here
+		//print_r(debug_backtrace()[2]['function']); die();
 		$_SESSION['rcnfm'] = md5(debug_backtrace()[2]['function']);
 	}
 

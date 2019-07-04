@@ -30,8 +30,8 @@ class Router extends Process
 
     protected function showRoute($parameters) : void
     {
-    	$controller = CNTD . ucfirst($parameters[0]) . '.php';
-    	$class = ucfirst($parameters[0]);
+    	$controller = CNTD . ucfirst($parameters[0]) . 'Controller.php';
+    	$class = ucfirst($parameters[0]) . 'Controller';
     	$method = $parameters[1];
 
     	RouterValidator::validate('Physical', [
@@ -44,7 +44,7 @@ class Router extends Process
     		'method' => $method
     	]);
         $methodPair = $this->getRequestMethod($controller, $method);
-        
+
         RouterValidator::validate('Method', $methodPair);
 		$object = new $class;
         $object->$method();

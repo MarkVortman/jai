@@ -33,5 +33,12 @@ class App extends Process
     	# directory must have name 'controllers.'
     	#
     	define('CNTD', AD . 'controllers/');
+
+        # App Mode ( AM )
+        #----------------------------------------------------
+        # To simplify using, development and delivery our 
+        # application we use various modes: dev, prod, debug
+        #
+        define('AM', 'prod');
     }
 }
